@@ -28,6 +28,7 @@ h1 {
 
 /* Button Styles */
 .button {
+    font-family: 'Press Start 2P', sans-serif;
     background-color: #FF4500;
     color: white;
     border: 5px solid #000;
