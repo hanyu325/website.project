@@ -1,0 +1,44 @@
+body {
+  font-family: 'Press Start 2P', sans-serif; /* Pixelated font */
+  background-color: #000; /* Black background */
+  color: #FFD700; /* Gold text color */
+  padding: 50px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+h1 {
+  font-size: 36px;
+  color: #FF4500; /* Mario-style red */
+  margin-bottom: 30px;
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* Back Button Styles */
+.back-button {
+  display: inline-block;
+  background-color: #FF4500; /* Mario-like red */
+  color: white;
+  border: 5px solid #000; /* Black border */
+  padding: 10px 30px;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0; /* Blocky retro look */
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.back-button:hover {
+ background-color: #E04000; /* Darker red */
+ transform: scale(1.05); /* Slight zoom */
+}
+
+.back-button:active {
+  transform: scale(0.95);
+}
