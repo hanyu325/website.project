@@ -1,7 +1,7 @@
 body {
-  font-family: 'Press Start 2P', sans-serif; /* Pixelated font */
-  background-color: #000; /* Black background */
-  color: #FFD700; /* Gold text color */
+  font-family: 'Press Start 2P', sans-serif;
+  background-color: #4e6851;
+  color: white;
   padding: 50px;
   line-height: 1.6;
   text-align: center;
@@ -9,8 +9,9 @@ body {
 
 h1 {
   font-size: 36px;
-  color: #FF4500; /* Mario-style red */
-  margin-bottom: 30px;
+  color: #dcc9a9;
+  text-shadow: 3px 3px #7697a0;
+  margin-bottom: 50px;
 }
 
 p {
@@ -18,27 +19,26 @@ p {
   margin-bottom: 15px;
 }
 
-/* Back Button Styles */
-.back-button {
+.button {
+  font-family: 'Press Start 2P', sans-serif;
   display: inline-block;
-  background-color: #FF4500; /* Mario-like red */
-  color: white;
-  border: 5px solid #000; /* Black border */
-  padding: 10px 30px;
+  background-color: #6e6454;
+  color: #dcc9a9;
+  border: 5px solid #b0a087;
+  padding: 20px 40px;
   font-size: 18px;
   text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 0; /* Blocky retro look */
+  border-radius: 0;
   margin-top: 20px;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.back-button:hover {
- background-color: #E04000; /* Darker red */
- transform: scale(1.05); /* Slight zoom */
+.button:hover {
+  background-color: #7697a0;
+  transform: scale(1.05);
 }
 
-.back-button:active {
+.button:active {
   transform: scale(0.95);
 }
