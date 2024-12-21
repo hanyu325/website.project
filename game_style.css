@@ -1,28 +1,17 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    color: black;
+    background-color: #6e6454;
+}
+
+.gamebody {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     overflow: hidden;
 }
+
 canvas {
+    background-image: url('room.png');
+    background-size: 610px;
     border: 2px solid white;
-}
-/* Dialogue Box Styles */
-#dialogue {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px 30px;
-    font-size: 18px;
-    border: 2px solid white;
-    border-radius: 8px;
-    display: none; /* Hidden by default */
-    z-index: 10; /* Ensure it's on top of canvas */
 }
