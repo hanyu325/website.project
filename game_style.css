@@ -15,3 +15,34 @@ canvas {
     background-size: 610px;
     border: 2px solid white;
 }
+
+.button-container {
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+}
+
+.button {
+    font-family: 'Press Start 2P', sans-serif;
+    display: inline-block;
+    background-color: #6e6454;
+    color: #dcc9a9;
+    border: 5px solid #b0a087;
+    padding: 20px 40px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-radius: 0;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+  
+.button:hover {
+    background-color: #7697a0;
+    transform: scale(1.05);
+}
+  
+.button:active {
+    transform: scale(0.95);
+}
