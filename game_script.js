@@ -7,12 +7,23 @@ function startGame() {
     const catImage = new Image();
     catImage.src = 'cat_walk.png';
 
+    const sittinggirlImage = new Image();
+    sittinggirlImage.src = 'girlsitting.png';
+
     const cat = {
-        x: 275,
+        x: 260,
         y: 400,
-        width: 85,
+        width: 95,
         height: 70,
         speed: 5,
+    };
+
+    const sittinggirl = {
+        x: 170,
+        y: 255,
+        width: 90,
+        height: 200,
+        speed: 0,
     };
 
     // 監聽鍵盤輸入
@@ -31,6 +42,7 @@ function startGame() {
     // 渲染畫面
     function render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
+        ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
         ctx.drawImage(catImage, cat.x, cat.y, cat.width, cat.height); // 繪製貓咪
     }
 
