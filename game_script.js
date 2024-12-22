@@ -7,6 +7,12 @@ function startGame() {
     const catImage = new Image();
     catImage.src = 'cat_walk.png';
 
+    const coffeeImage = new Image();
+    coffeeImage.src = 'coffee.png';
+
+    const letterImage = new Image();
+    letterImage.src = 'letter.png';
+
     const sittinggirlImage = new Image();
     sittinggirlImage.src = 'girlsitting.png';
 
@@ -26,6 +32,22 @@ function startGame() {
         speed: 0,
     };
 
+    const coffee = {
+        x: 300,
+        y: 310,
+        width: 40,
+        height: 40,
+        speed: 0,
+    };
+
+    const letter = {
+        x: 250,
+        y: 335,
+        width: 60,
+        height: 25,
+        speed: 0,
+    };
+
     // 監聽鍵盤輸入
     const keys = {};
     document.addEventListener('keydown', (e) => keys[e.key] = true);
@@ -42,6 +64,8 @@ function startGame() {
     // 渲染畫面
     function render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
+        ctx.drawImage(letterImage, letter.x, letter.y, letter.width, letter.height);
+        ctx.drawImage(coffeeImage, coffee.x, coffee.y, coffee.width, coffee.height);
         ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
         ctx.drawImage(catImage, cat.x, cat.y, cat.width, cat.height); // 繪製貓咪
     }
