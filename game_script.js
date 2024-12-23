@@ -7,6 +7,9 @@ function startGame() {
     const catImage = new Image();
     catImage.src = 'cat_walk.png';
 
+    const catrevImage = new Image();
+    catrevImage.src = 'cat_walk_rev.png';
+
     const coffeeImage = new Image();
     coffeeImage.src = 'coffee.png';
 
@@ -17,6 +20,14 @@ function startGame() {
     sittinggirlImage.src = 'girlsitting.png';
 
     const cat = {
+        x: 260,
+        y: 400,
+        width: 95,
+        height: 70,
+        speed: 5,
+    };
+
+    const catrev = {
         x: 260,
         y: 400,
         width: 95,
@@ -48,6 +59,8 @@ function startGame() {
         speed: 0,
     };
 
+    let r = 0;
+
     // 監聽鍵盤輸入
     const keys = {};
     document.addEventListener('keydown', (e) => keys[e.key] = true);
@@ -55,19 +68,40 @@ function startGame() {
 
     // 更新貓咪位置
     function update() {
-        if (keys['w'] && cat.y > 0) cat.y -= cat.speed; // 向上移動
-        if (keys['s'] && cat.y + cat.height < canvas.height) cat.y += cat.speed; // 向下移動
-        if (keys['a'] && cat.x > 0) cat.x -= cat.speed; // 向左移動
-        if (keys['d'] && cat.x + cat.width < canvas.width) cat.x += cat.speed; // 向右移動
+        console.log(r);
+        if (keys['w'] && cat.y > 0) {
+            cat.y -= cat.speed; // 向上移動
+            catrev.y -= catrev.speed;
+        }
+        if (keys['s'] && cat.y + cat.height < canvas.height) {
+            cat.y += cat.speed; // 向下移動
+            catrev.y += catrev.speed;
+        }
+        if (keys['a'] && cat.x > 0) {
+            cat.x -= cat.speed; // 向左移動
+            catrev.x -= catrev.speed;
+            r = 0;
+        }
+        if (keys['d'] && cat.x + cat.width < canvas.width) {
+            cat.x += cat.speed; // 向右移動
+            catrev.x += catrev.speed;
+            r = 1;
+        }
     }
 
     // 渲染畫面
     function render() {
+        console.log(r);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
         ctx.drawImage(letterImage, letter.x, letter.y, letter.width, letter.height);
         ctx.drawImage(coffeeImage, coffee.x, coffee.y, coffee.width, coffee.height);
         ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
-        ctx.drawImage(catImage, cat.x, cat.y, cat.width, cat.height); // 繪製貓咪
+        if (r == 1) {
+            ctx.drawImage(catrevImage, catrev.x, catrev.y, catrev.width, catrev.height);
+        }
+        else {
+            ctx.drawImage(catImage, cat.x, cat.y, cat.width, cat.height);
+        }
     }
 
     // 遊戲主迴圈
