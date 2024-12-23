@@ -13,6 +13,9 @@ function startGame() {
     const coffeeImage = new Image();
     coffeeImage.src = 'coffee.png';
 
+    const coffeespillImage = new Image();
+    coffeespillImage.src = 'spilled_coffee.png';
+
     const letterImage = new Image();
     letterImage.src = 'letter.png';
 
@@ -45,6 +48,14 @@ function startGame() {
 
     const coffee = {
         x: 300,
+        y: 310,
+        width: 40,
+        height: 40,
+        speed: 0,
+    };
+
+    const coffeespill = {
+        x: 290,
         y: 310,
         width: 40,
         height: 40,
@@ -89,13 +100,24 @@ function startGame() {
         }
     }
 
+    let spill = 0;
+
     // 渲染畫面
     function render() {
         console.log(r);
+        console.log(spill);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
         ctx.drawImage(letterImage, letter.x, letter.y, letter.width, letter.height);
-        ctx.drawImage(coffeeImage, coffee.x, coffee.y, coffee.width, coffee.height);
         ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
+        if (keys['q'] && (coffee.x - 50 <= cat.x && cat.x <= coffee.x + 50) && (coffee.y - 50 <= cat.y && cat.y <= coffee.y + 50)) {
+            spill = 1;
+        }
+        if (spill == 1) {
+            ctx.drawImage(coffeespillImage, coffeespill.x, coffeespill.y, coffeespill.width, coffeespill.height);
+        }
+        else {
+            ctx.drawImage(coffeeImage, coffee.x, coffee.y, coffee.width, coffee.height);
+        }
         if (r == 1) {
             ctx.drawImage(catrevImage, catrev.x, catrev.y, catrev.width, catrev.height);
         }
