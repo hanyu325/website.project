@@ -12,8 +12,8 @@ body {
 
 canvas {
     background-image: url('room.png');
-    background-size: 610px;
-    border: 2px solid white;
+    background-size: 1000px;
+    border: 15px inset #b0a087;
 }
 
 .button-container {
@@ -45,4 +45,19 @@ canvas {
   
 .button:active {
     transform: scale(0.95);
+}
+
+#dialogue {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 8px;
+    display: none; /* Hidden by default */
+    z-index: 10; /* Ensure it's on top of canvas */
 }
