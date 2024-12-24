@@ -4,11 +4,21 @@ function startGame() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    const catImage = new Image();
-    catImage.src = 'cat_walk.png';
+    // 載入圖片
+    const catsitImage = new Image();
+    catsitImage.src = 'cat_sit.png';
 
-    const catrevImage = new Image();
-    catrevImage.src = 'cat_walk_rev.png';
+    const catleftImage = new Image();
+    catleftImage.src = 'cat_walk.png';
+
+    const catrightImage = new Image();
+    catrightImage.src = 'cat_walk_rev.png';
+
+    const catbackImage = new Image();
+    catbackImage.src = 'cat_back.png';
+
+    const catfrontImage = new Image();
+    catfrontImage.src = 'cat_front.png';
 
     const coffeeImage = new Image();
     coffeeImage.src = 'coffee.png';
@@ -22,55 +32,20 @@ function startGame() {
     const sittinggirlImage = new Image();
     sittinggirlImage.src = 'girlsitting.png';
 
-    const cat = {
-        x: 260,
-        y: 400,
-        width: 95,
-        height: 70,
-        speed: 5,
-    };
+    
+    // 圖片初始位置 (btw. 我調這個調了很久)
+    const catsit = { x: 475, y: 400, width: 55, height: 80, speed: 5 };
+    const catleft = { x: 475, y: 400, width: 80, height: 65, speed: 5 };
+    const catright = { x: 475, y: 400, width: 80, height: 65, speed: 5 };
+    const catback = { x: 475, y: 400, width: 65, height: 70, speed: 5 };
+    const catfront = { x: 475, y: 400, width: 55, height: 70, speed: 5 };
 
-    const catrev = {
-        x: 260,
-        y: 400,
-        width: 95,
-        height: 70,
-        speed: 5,
-    };
+    const sittinggirl = { x: 350, y: 265, width: 90, height: 200, speed: 0 };
+    const coffee = { x: 500, y: 320, width: 40, height: 40, speed: 0 };
+    const coffeespill = { x: 460, y: 320, width: 40, height: 40, speed: 0 };
+    const letter = { x: 440, y: 345, width: 60, height: 25, speed: 0 };
 
-    const sittinggirl = {
-        x: 170,
-        y: 255,
-        width: 90,
-        height: 200,
-        speed: 0,
-    };
-
-    const coffee = {
-        x: 300,
-        y: 310,
-        width: 40,
-        height: 40,
-        speed: 0,
-    };
-
-    const coffeespill = {
-        x: 290,
-        y: 310,
-        width: 40,
-        height: 40,
-        speed: 0,
-    };
-
-    const letter = {
-        x: 250,
-        y: 335,
-        width: 60,
-        height: 25,
-        speed: 0,
-    };
-
-    let r = 0;
+    let direction = 0;  // 坐著: 0, 上: 1, 下: 2, 左:3, 右: 4
 
     // 監聽鍵盤輸入
     const keys = {};
@@ -79,37 +54,54 @@ function startGame() {
 
     // 更新貓咪位置
     function update() {
-        console.log(r);
-        if (keys['w'] && cat.y > 0) {
-            cat.y -= cat.speed; // 向上移動
-            catrev.y -= catrev.speed;
+        console.log(direction);
+        if (keys['w'] && catsit.y > 0) {
+            catsit.y -= catsit.speed; // 向上移動
+            catleft.y -= catleft.speed;
+            catright.y -= catright.speed;
+            catback.y -= catback.speed;
+            catfront.y -= catfront.speed;
+            direction = 1;
         }
-        if (keys['s'] && cat.y + cat.height < canvas.height) {
-            cat.y += cat.speed; // 向下移動
-            catrev.y += catrev.speed;
+        if (keys['s'] && catsit.y + catsit.height < canvas.height) {
+            catsit.y += catsit.speed; // 向下移動
+            catleft.y += catleft.speed;
+            catright.y += catright.speed;
+            catback.y += catback.speed;
+            catfront.y += catfront.speed;
+            direction = 2;
         }
-        if (keys['a'] && cat.x > 0) {
-            cat.x -= cat.speed; // 向左移動
-            catrev.x -= catrev.speed;
-            r = 0;
+        if (keys['a'] && catsit.x > 0) {
+            catsit.x -= catsit.speed; // 向左移動
+            catleft.x -= catleft.speed;
+            catright.x -= catright.speed;
+            catback.x -= catback.speed;
+            catfront.x -= catfront.speed;
+            direction = 3;  // 貓咪朝左
         }
-        if (keys['d'] && cat.x + cat.width < canvas.width) {
-            cat.x += cat.speed; // 向右移動
-            catrev.x += catrev.speed;
-            r = 1;
+        if (keys['d'] && catsit.x + catsit.width < canvas.width) {
+            catsit.x += catsit.speed; // 向左移動
+            catleft.x += catleft.speed;
+            catright.x += catright.speed;
+            catback.x += catback.speed;
+            catfront.x += catfront.speed;
+            direction = 4;  // 貓咪朝右
         }
     }
 
-    let spill = 0;
+    let spill = 0;  // 判斷咖啡倒了沒的變數
 
-    // 渲染畫面
+    // 真正畫在網頁上面是這個 function，每幀每幀的畫 :)
+    // 因為用了console.log，去看console的話會很精彩 XD
     function render() {
-        console.log(r);
+        console.log(direction);
         console.log(spill);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
         ctx.drawImage(letterImage, letter.x, letter.y, letter.width, letter.height);
         ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
-        if (keys['q'] && (coffee.x - 50 <= cat.x && cat.x <= coffee.x + 50) && (coffee.y - 50 <= cat.y && cat.y <= coffee.y + 50)) {
+
+        // 畫咖啡
+        if (keys['q'] && (coffee.x - 50 <= catsit.x && catsit.x <= coffee.x + 50) && (coffee.y - 50 <= catsit.y && catsit.y <= coffee.y + 50)) {
             spill = 1;
         }
         if (spill == 1) {
@@ -118,23 +110,38 @@ function startGame() {
         else {
             ctx.drawImage(coffeeImage, coffee.x, coffee.y, coffee.width, coffee.height);
         }
-        if (r == 1) {
-            ctx.drawImage(catrevImage, catrev.x, catrev.y, catrev.width, catrev.height);
+
+        // 畫貓
+        if (direction == 0) {   // 坐著
+            ctx.drawImage(catsitImage, catsit.x, catsit.y, catsit.width, catsit.height);
         }
-        else {
-            ctx.drawImage(catImage, cat.x, cat.y, cat.width, cat.height);
+        if (direction == 1) {   // 上
+            ctx.drawImage(catbackImage, catback.x, catback.y, catback.width, catback.height);
         }
+        if (direction == 2) {   // 下
+            ctx.drawImage(catfrontImage, catfront.x, catfront.y, catfront.width, catfront.height);
+        }
+        if (direction == 3) {   // 左
+            ctx.drawImage(catleftImage, catleft.x, catleft.y, catleft.width, catleft.height);
+        }
+        if (direction == 4) {   // 右
+            ctx.drawImage(catrightImage, catright.x, catright.y, catright.width, catright.height);
+        }
+
+        direction = 0;
     }
 
     // 遊戲主迴圈
     function gameLoop() {
-        update(); // 更新邏輯
-        render(); // 渲染畫面
+        update();   // 更新貓咪位置
+        render();   // 畫畫 :)
         requestAnimationFrame(gameLoop); // 下一幀呼叫
+        console.log(spill);
     }
 
-    // 確保圖片載入後開始遊戲
-    catImage.onload = () => {
-        gameLoop();
-    };
+    gameLoop();
+}
+
+function endGame() {
+    // 還在想
 }
