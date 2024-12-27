@@ -13,10 +13,29 @@
         <div id="dialogue">"Hello! Nice to meet you!"</div>
     </div>
     <div class="button-container">
+        <title>Modal Example</title>
+            <!-- 觸發模態框的按鈕 -->
+            <button id="openModal" class ="button">Game instruction</button>
+            <!-- 模態框 -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h1>Game Instructions</h1>
+                    <p>Welcome to Break the Silence! Here are your instructions:</p>
+                    <p>1. Use the W,A,S,D to move your character.</p>
+                    <p>2. Interact with objects in the game by pressing Q.</p>
+                    <p>3. There is a schedule bar on the upper-left. It will show your schedule of the whole game.</p>
+                </div>
+            </div>
+        <button class="button" onclick="location.href='index.html'">Back to Home</button>
+    </div>
+    <!--
+    <div class="button-container">
         <button class="button" onclick="location.reload()">Restart the Game</button>
         <button class="button" onclick="location.href='instructions.html'">Game Instruction</button>
         <button class="button" onclick="location.href='index.html'">Back to Home</button>
     </div>
+    -->
     <script src="game_script.js"></script>
 </body>
 </html>
