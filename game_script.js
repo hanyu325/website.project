@@ -51,7 +51,29 @@ function startGame() {
     const keys = {};
     document.addEventListener('keydown', (e) => keys[e.key] = true);
     document.addEventListener('keyup', (e) => keys[e.key] = false);
+    
+    // 獲取元素
+    const modal = document.getElementById("myModal");
+    const openModal = document.getElementById("openModal");
+    const closeModal = document.querySelector(".close");
 
+    // 點擊按鈕顯示模態框
+    openModal.onclick = function () {
+        modal.style.display = "flex";
+    };
+
+    // 點擊關閉按鈕隱藏模態框
+    closeModal.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    // 點擊模態框外部隱藏模態框
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+    
     // 更新貓咪位置
     function update() {
         console.log(direction);
