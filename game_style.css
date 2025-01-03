@@ -47,19 +47,32 @@ canvas {
     transform: scale(0.95);
 }
 
-#dialogue {
+#dialogBox {
     position: absolute;
-    top: 30%;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    width: 80%;
+    padding: 20px;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 15px 30px;
-    font-size: 18px;
-    border: 2px solid white;
-    border-radius: 8px;
-    display: none; /* Hidden by default */
-    z-index: 10; /* Ensure it's on top of canvas */
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* 初始隱藏 */
+    text-align: center;
+    z-index: 10;
+}
+
+#closeDialog {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 /* 模態框的樣式 */

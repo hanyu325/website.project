@@ -4,7 +4,16 @@ function startGame() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // 載入圖片
+    // 音樂的部分
+    const backgroundMusic = new Audio('music_1.mp3');
+    backgroundMusic.loop = true; // 自動循環播放
+    backgroundMusic.volume = 1; // 調整音量（0 到 1 之間）
+
+    let musicStarted = true;
+    function startMusic() {
+        backgroundMusic.play();
+    }
+
     const catsitImage = new Image();
     catsitImage.src = 'cat_sit.png';
 
@@ -32,7 +41,6 @@ function startGame() {
     const sittinggirlImage = new Image();
     sittinggirlImage.src = 'girlsitting.png';
 
-    
     // 圖片初始位置 (btw. 我調這個調了很久)
     const catsit = { x: 475, y: 400, width: 55, height: 80, speed: 5 };
     const catleft = { x: 475, y: 400, width: 80, height: 65, speed: 5 };
@@ -46,12 +54,37 @@ function startGame() {
     const letter = { x: 440, y: 345, width: 60, height: 25, speed: 0 };
 
     let direction = 0;  // 坐著: 0, 上: 1, 下: 2, 左:3, 右: 4
+    let timer = null;
+    let timeRemaining = 8;  // 倒數計時時間
+
+    function startTimer() {
+        timer = setInterval(() => {
+            timeRemaining--;
+            renderProgressBar();
+
+            if (timeRemaining <= 0) {
+                clearInterval(timer);
+            }
+        }, 1000);
+    }
+
+    function renderProgressBar() {
+        const progressBarWidth = 200;
+        const progressBarHeight = 20;
+        const progress = (timeRemaining / 8) * progressBarWidth;
+
+        ctx.clearRect(10, 10, progressBarWidth, progressBarHeight); // 清除上次繪製的進度條
+        ctx.fillStyle = "#e0e0e0";
+        ctx.fillRect(10, 10, progressBarWidth, progressBarHeight); // 背景
+        ctx.fillStyle = "#76c7c0";
+        ctx.fillRect(10, 10, progress, progressBarHeight); // 進度
+    }
 
     // 監聽鍵盤輸入
     const keys = {};
     document.addEventListener('keydown', (e) => keys[e.key] = true);
     document.addEventListener('keyup', (e) => keys[e.key] = false);
-    
+
     // 獲取元素
     const modal = document.getElementById("myModal");
     const openModal = document.getElementById("openModal");
@@ -73,7 +106,54 @@ function startGame() {
             modal.style.display = "none";
         }
     }
+
+    // 多段對話內容
+    const dialogs = [
+        "你好，貓咪！",
+        "你今天過得好嗎？",
+        "這裡的風景很美呢。",
+        "希望你能一直陪伴著我。"
+    ];
+
+    let dialogIndex = 0; // 當前對話的索引
+    let dialogTriggered = false; // 是否觸發對話框
+    let allDialogsCompleted = false; // 確保所有對話結束後不再觸發
+
+    const dialogBox = document.getElementById("dialogBox"); // 對話框元素
+    const dialogText = document.getElementById("dialogText"); // 顯示對話的文字內容
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'q') {
+            // 確保所有對話結束後不再觸發對話框
+            if (allDialogsCompleted) return;
     
+            // 檢查貓咪是否靠近 girl
+            if (
+                (sittinggirl.x - 50 <= catsit.x && catsit.x <= sittinggirl.x + sittinggirl.width + 50) &&
+                (sittinggirl.y - 50 <= catsit.y && catsit.y <= sittinggirl.y + sittinggirl.height + 50)
+            ) {
+                if (!dialogTriggered) {
+                    // 顯示對話框並顯示第一段對話
+                    dialogBox.style.display = "block";
+                    dialogText.textContent = dialogs[dialogIndex];
+                    dialogTriggered = true;
+                } else {
+                    // 切換到下一段對話
+                    dialogIndex++;
+                    if (dialogIndex < dialogs.length) {
+                        dialogText.textContent = dialogs[dialogIndex];
+                    } else {
+                        // 隱藏對話框並記錄所有對話完成
+                        dialogBox.style.display = "none";
+                        dialogTriggered = false;
+                        allDialogsCompleted = true; // 設置對話完成狀態
+                        startTimer(); // 開始倒數計時
+                    }
+                }
+            }
+        }
+    });
+
     // 更新貓咪位置
     function update() {
         console.log(direction);
@@ -118,12 +198,13 @@ function startGame() {
     function render() {
         console.log(direction);
         console.log(spill);
+        console.log(allDialogsCompleted);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
         ctx.drawImage(letterImage, letter.x, letter.y, letter.width, letter.height);
         ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
 
         // 畫咖啡
-        if (keys['q'] && (coffee.x - 50 <= catsit.x && catsit.x <= coffee.x + 50) && (coffee.y - 50 <= catsit.y && catsit.y <= coffee.y + 50)) {
+        if (allDialogsCompleted && keys['q'] && (coffee.x - 50 <= catsit.x && catsit.x <= coffee.x + 50) && (coffee.y - 50 <= catsit.y && catsit.y <= coffee.y + 50)) {
             spill = 1;
         }
         if (spill == 1) {
@@ -153,17 +234,46 @@ function startGame() {
         direction = 0;
     }
 
+    function showGameOver() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = "#6e6454";
+        ctx.lineWidth = 10;
+        ctx.fillStyle = "#dcc9a9";
+        ctx.font = "80px 'Press Start 2P'";
+        ctx.textAlign = "center";
+        ctx.strokeText("Game Over", canvas.width / 2, canvas.height / 2);
+        ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2);
+    }
+
     // 遊戲主迴圈
     function gameLoop() {
         update();   // 更新貓咪位置
         render();   // 畫畫 :)
-        requestAnimationFrame(gameLoop); // 下一幀呼叫
-        console.log(spill);
+        renderProgressBar();
+        startMusic();
+
+        // 如果咖啡未打翻，繼續gameloop()
+        if (spill === 1) {
+            clearInterval(timer);
+            setTimeout(() => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = "#6e6454";
+                ctx.lineWidth = 10;
+                ctx.fillStyle = "#dcc9a9";
+                ctx.font = "80px 'Press Start 2P'";
+                ctx.textAlign = "center";
+                ctx.strokeText("Next Level", canvas.width / 2, canvas.height / 2);
+                ctx.fillText("Next Level", canvas.width / 2, canvas.height / 2);
+                setTimeout(() => window.location.href = 'game2.html', 2000);
+            }, 1000);
+        } 
+        else if (timeRemaining > 0) {
+            requestAnimationFrame(gameLoop);
+        }
+        else {
+            showGameOver();
+        }
     }
 
     gameLoop();
-}
-
-function endGame() {
-    // 還在想
 }
