@@ -16,5 +16,5 @@
 
 ###### 製作人: Hanyu, Johnny, ChatGPT(大功臣，除了幫助我們寫網頁之外，所有圖片都是它生的XD)
 
-###### Hanyu聯絡方式:
+###### 聯絡方式:
 ###### Gmail: hanyu0325@gmail.com
