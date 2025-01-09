@@ -41,6 +41,15 @@ function startGame() {
     const sittinggirlImage = new Image();
     sittinggirlImage.src = 'girlsitting.png';
 
+    const standinggirlImage = new Image();
+    standinggirlImage.src = 'girlstanding.png';
+
+    const ropeImage = new Image();
+    ropeImage.src = 'rope.png';
+
+    const badendImage = new Image();
+    badendImage.src = 'bad_ending.png';
+
     // 圖片初始位置 (btw. 我調這個調了很久)
     const catsit = { x: 475, y: 400, width: 55, height: 80, speed: 5 };
     const catleft = { x: 475, y: 400, width: 80, height: 65, speed: 5 };
@@ -49,9 +58,12 @@ function startGame() {
     const catfront = { x: 475, y: 400, width: 55, height: 70, speed: 5 };
 
     const sittinggirl = { x: 350, y: 265, width: 90, height: 200, speed: 0 };
+    const standinggirl = { x: 355, y: 170, width: 80, height: 235, speed: 0 };
     const coffee = { x: 500, y: 320, width: 40, height: 40, speed: 0 };
     const coffeespill = { x: 460, y: 320, width: 40, height: 40, speed: 0 };
     const letter = { x: 440, y: 345, width: 60, height: 25, speed: 0 };
+    const rope = { x: 390, y: 45, width: 90, height: 190, speed: 0 };
+    const badend = { x: 0, y: 0, width: 1000, height: 551, speed: 0};
 
     let direction = 0;  // 坐著: 0, 上: 1, 下: 2, 左:3, 右: 4
     let timer = null;
@@ -109,10 +121,13 @@ function startGame() {
 
     // 多段對話內容
     const dialogs = [
-        "你好，貓咪！",
-        "你今天過得好嗎？",
-        "這裡的風景很美呢。",
-        "希望你能一直陪伴著我。"
+        "How should I write this…? I want them to know that I’m not complaining; I’m just tired… really, really tired.",
+        "...",
+        "I’ve tried everything, but each time it feels like falling into a deeper black hole… There’s no way out. There’s truly no hope.",
+        "...",
+        "Why did things turn out this way? I tried, but no one cared… Maybe leaving is my only relief.",
+        "…So this is the end, isn’t it? No one will miss me… Maybe that’s how it should be. The world doesn’t need someone as useless as me.",
+        "If there’s a next life, I hope I can live more freely… but for now, I just can’t."
     ];
 
     let dialogIndex = 0; // 當前對話的索引
@@ -201,8 +216,15 @@ function startGame() {
         console.log(allDialogsCompleted);
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
         ctx.drawImage(letterImage, letter.x, letter.y, letter.width, letter.height);
-        ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
-
+        ctx.drawImage(ropeImage, rope.x, rope.y, rope.width, rope.height);
+        
+        // 如果對話結束，換成站著的圖片
+        if (allDialogsCompleted === true) {
+            ctx.drawImage(standinggirlImage, standinggirl.x, standinggirl.y, standinggirl.width, standinggirl.height);
+        }
+        else {
+            ctx.drawImage(sittinggirlImage, sittinggirl.x, sittinggirl.y, sittinggirl.width, sittinggirl.height);
+        }
         // 畫咖啡
         if (allDialogsCompleted && keys['q'] && (coffee.x - 50 <= catsit.x && catsit.x <= coffee.x + 50) && (coffee.y - 50 <= catsit.y && catsit.y <= coffee.y + 50)) {
             spill = 1;
@@ -236,6 +258,7 @@ function startGame() {
 
     function showGameOver() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(badendImage, badend.x, badend.y, badend.width, badend.height);
         ctx.strokeStyle = "#6e6454";
         ctx.lineWidth = 10;
         ctx.fillStyle = "#dcc9a9";

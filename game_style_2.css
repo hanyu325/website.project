@@ -1,0 +1,201 @@
+body {
+    background-color: #6e6454;
+}
+
+.gamebody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+canvas {
+    background-image: url('room.png');
+    background-size: 1000px;
+    border: 15px inset #b0a087;
+}
+
+.button-container {
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+}
+
+.button {
+    font-family: 'Press Start 2P', sans-serif;
+    display: inline-block;
+    background-color: #6e6454;
+    color: #dcc9a9;
+    border: 5px solid #b0a087;
+    padding: 20px 40px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-radius: 0;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+  
+.button:hover {
+    background-color: #7697a0;
+    transform: scale(1.05);
+}
+  
+.button:active {
+    transform: scale(0.95);
+}
+
+#dialogue {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 8px;
+    display: none; /* Hidden by default */
+    z-index: 10; /* Ensure it's on top of canvas */
+}
+
+/* 模態框的樣式 */
+.modal {
+    display: none; /* 隱藏模態框 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #4e6851;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+#phoneModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 300px;
+}
+
+#phoneInterface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#phoneDisplay {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    height: 40px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 40px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 100%;
+}
+
+.key {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.key:hover {
+    background: #0056b3;
+}
+
+#closePhone, #deleteKey {
+    background: #dc3545;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#closePhone:hover, #deleteKey:hover {
+    background: #b02a37;
+}
+#idcardModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+#idcardPhoto {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#closeIdCard {
+    margin-top: 10px;
+    padding: 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#closeIdCard:hover {
+    background: #b02a37;
+}

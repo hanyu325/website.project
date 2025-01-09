@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+    <title>Happy Ending</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Press Start 2P', sans-serif;
+            text-shadow: 2px 2px #6e6454;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.8;
+            transition: background 0.5s ease;
+        }
+
+        #dialogue {
+            font-size: 20px;
+            line-height: 1.6;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .left, .right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        body.add-background {
+            background-image: url('happy_ending.png');
+            background-size: cover;
+            background-position: center;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="dialogue"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+
+    <script>
+        const dialogues = [
+            "The room was silent—so silent that only the ticking of the clock on the wall and the occasional howling of the wind outside could be heard. She sat by the desk, staring at a torn piece of paper on the table—a coffee-stained suicide note with words long blurred and illegible. She let out a soft sigh, her mind swirling with conflicting thoughts.",
+            "Suddenly, a knock on the door shattered the oppressive silence.",
+            "“Who could it be...?” She frowned but didn’t move. “Never mind, they’ll probably leave soon.” The knocking persisted, growing more resolute.",
+            "Irritated, she tucked her hair behind her ear before finally getting up and walking toward the door. When she opened it, a group of strangers stood outside. At the front was a counselor with a gentle smile, accompanied by paramedics. She froze, unsure of what to say.",
+            "“Hello, we received a report and were concerned that you might need help,” the counselor said softly, as though speaking to a wounded bird. “A report...?” Her gaze drifted over her shoulder, landing on the cat sitting quietly on the table, its tail swaying rhythmically.",
+            "At that moment, she suddenly recalled the earlier chaos: the cat knocking over the coffee and ruining her suicide note. A strange feeling stirred within her, as if something lightly tapped against her chest. “Come in…” she said quietly, stepping aside to let the counselor and paramedics enter.",
+            "Time seemed to pause for a moment before slowly resuming its flow. She sat on the sofa, her hands limp on her knees. The counselor sat across from her, not rushing to ask questions, instead letting the atmosphere gradually become more relaxed. They talked for a long time, starting with trivial topics and gradually delving deeper. She didn’t realize that her tone had softened, and the emptiness in her eyes had lessened.",
+            "Nearby, the cat jumped onto the sofa and curled up beside her, purring softly. She reached out to stroke its head, feeling its warmth and softness. Something in her heart began to loosen. “At least... you’re still here,” she murmured, almost to herself.",
+            "Months later",
+            "Sunlight streamed through the curtains, filling the room with warmth. She sat at the dining table, a steaming cup of coffee in front of her. She flipped through a book, jotting down occasional notes in the notebook beside her. The cat leapt onto the table, nudging her hand with its nose. She chuckled and pulled the cat into her arms.",
+            "“You little rascal, if it weren’t for you that day, I might not have made it.”",
+            "The chirping of birds outside was crisp and bright, and the corners of her mouth curved into a faint smile. Over the past few months, she had met with the counselor weekly, gradually releasing the emotions she had kept bottled up for so long. She had learned to organize her thoughts, reconnect with friends, and reclaim fragments of herself she thought were lost.",
+            "That day, she stood up, walked to the window, and pushed it open. A rush of fresh air filled the room. She closed her eyes and felt a long-forgotten sense of peace.",
+            "“Maybe… there are still things worth looking forward to in life,” she whispered, a small smile playing on her lips.",
+            "The end."
+        ];
+
+        const backgroundMusic = new Audio('music_10.mp3');
+        backgroundMusic.loop = true;
+        backgroundMusic.volume = 1;
+
+        let musicStarted = false;
+        function startMusic() {
+            musicStarted = true;
+            if (musicStarted === true) {
+                backgroundMusic.play();
+            }
+        }
+
+        let index = 0;
+
+        const dialogue = document.getElementById('dialogue');
+        dialogue.textContent = dialogues[index];
+
+        document.querySelector('.left').addEventListener('click', () => {
+            if (index > 0) {
+                index--;
+                dialogue.textContent = dialogues[index];
+
+                if (index < 10) {
+                    document.body.classList.remove('add-background');
+                }
+            }
+        });
+
+        document.querySelector('.right').addEventListener('click', () => {
+            if (index < dialogues.length - 1) {
+                index++;
+                dialogue.textContent = dialogues[index];
+
+                if (index === 10) {
+                    document.body.classList.add('add-background');
+                }
+                if (index === 9) {
+                    startMusic();
+                }
+            } else {
+                dialogue.textContent = "Thank you for playing.";
+            }
+        });
+    </script>
+</body>
+</html>
