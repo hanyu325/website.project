@@ -23,7 +23,10 @@
 ###### 音樂來源: ローファイ少女は今日も寝不足(Lo-fi girl always lacks sleep) - しゃろう Sharou (從 DOVA-SYNDROME 下載)
 ###### 音樂來源: 10℃ - しゃろう Sharou (從 DOVA-SYNDROME 下載)
 
-###### 製作人: Hanyu, Johnny, ChatGPT(大功臣，除了幫助我們寫網頁之外，所有圖片都是它生的XD)
+### 製作人: 
+###### Hanyu
+###### Johnny
+###### ChatGPT(大功臣，除了幫助我們寫網頁之外，所有圖片都是它生的XD)
 
-###### 聯絡方式:
+### 聯絡方式:
 ###### Gmail: hanyu0325@gmail.com
