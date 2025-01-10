@@ -226,7 +226,7 @@ function startGame() {
 
     const backgroundMusic = new Audio('music_1.mp3');
     backgroundMusic.loop = true; // 自動循環播放
-    backgroundMusic.volume = 1; // 調整音量（0 到 1 之間）
+    backgroundMusic.volume = 0.5; // 調整音量（0 到 1 之間）
 
     let musicStarted = true;
     function startMusic() {
